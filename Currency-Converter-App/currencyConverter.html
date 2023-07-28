@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>
+        Converting currencies for fun and profit!
+    </h1>
+    <p>
+        
+        <label for="from">From:</label>
+        <select name="from" id="from">
+            <option value="USD">US Dollar</option>
+            <option value="EUR">Euro</option>
+            <option value="GBP">British Pound</option>
+            <option value="JPY">Japanese Yen</option>
+            <option value="CHF">Swiss Franc</option>
+            <option value="CAD">Canadian Dollar</option>
+        </select>
+        <input type="number" id="fromAmount" value="1.00">
+    </p>
+    <script>
+        function convertCurrency() {
+            var from = document.getElementById("from").value;
+            var to = document.getElementById("to").value;
+            var xmlhttp = new XMLHttpRequest();
+            var url = "http://api.fixer.io/latest?symbols=" + from + "," + to;
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var result = xmlhttp.responseText;
+                    var jsResult = JSON.parse(result);
+                    var oneUnit = jsResult.rates[from];
+                    var perUnit = jsResult.rates[to];
+                    var amt = document.getElementById("fromAmount").value;
+                    document.getElementById("toAmount").value = amt * perUnit / oneUnit;
+                }
+            };
+            xmlhttp.open("GET", url, true);
+            xmlhttp.send();
+        }
+    </script>
+</body>
+</html>
