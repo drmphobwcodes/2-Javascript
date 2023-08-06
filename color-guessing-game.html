@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Color Guessing Game</title>
+    <link rel="stylesheet" href="css/color-guessing-game.css">
+</head>
+
+<body>
+    <h1>Color Guessing Game</h1>
+    <button type="button" onclick="runGame()">Start Game</button>
+
+    <script>
+        const COLORS_ARRAY = ["red", "orange", "yellow", "green", "blue", "indigo", "violet", "black", "white"];
+
+        function runGame() {
+
+            let correct = false;
+            let guess = "";
+            let numTries = 0;
+
+            const targetIndex = Math.floor(Math.random() * COLORS_ARRAY.length);
+            const target = COLORS_ARRAY[targetIndex];
+
+            console.log("The target is: " + target);
+
+            do {
+                guess = prompt("I am thinking of one of these colors:" +
+                    COLORS_ARRAY.join(" , ") + "\n\n" +
+                    "What color am I thinking of?\n");
+                if (guess === null) {
+                    alert("Sorry, I don't recognize your color");
+                    return;
+                }
+                numTries += 1;
+                correct = checkGuess(guess, target);
+            } while (!correct);
+            document.body.style.background = guess;
+            
+            alert("Congratulations! The color was " + target + "!" + numTries + " guesses");
+        }
+
+        function checkGuess(guess, target) {
+            let correct = false;
+
+            if (COLORS_ARRAY.indexOf(guess) === -1) {
+                alert("Sorry, I don't recognize your color");
+                //return false;
+            }
+            else if (guess > target) {
+                alert("Sorry, your guess is not correct!\n\n" +
+                    "Hint: your color is alphabetically higher than mine.\n\n" +
+                    "Please try again.");
+            }
+            else if (guess < target) {
+                alert("Sorry, your guess is not correct!\n\n" +
+                    "Hint: your color is alphabetically lower than mine.\n\n" +
+                    "Please try again.");
+            }
+            else {
+                correct = true;
+            }
+            return correct;
+        }
+
+    </script>
+</body>
+
+</html>

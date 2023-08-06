@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magical Theater</title>
+    <link rel="stylesheet" href="theater2.css">
+</head>
+
+<body>
+    <h1>Magical Theater</h1>
+    <p>Click on the button to see the magic.</p>
+    <button onclick="myFunction()">Click me</button>
+    <script>
+        var price;
+        if (age<=12 || age>=65 ){
+            price = 10;
+        } else if (age>=13 && age<=64){
+            price = 20;
+    
+        }
+        return price;
+        
+        discount = prompt("Are you attending the martine show?");
+        if (discount == "yes"){
+            discount = 3;
+        } else {
+            discount = 0;
+        }
+        var discount = 3;
+        function myFunction() {
+            var age = prompt("What is your age?");
+            
+            alert("Your ticket will cost " + price + discount + " years old!");
+        }
+    </script>
+</body>
+</html>
