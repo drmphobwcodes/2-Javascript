@@ -18,13 +18,26 @@ class Bootcamp {
         this.students = students;
     } 
     registerStudent(studentToRegister) {
-        if (this.students.filter(student => student.email === studentToRegister.email).length) {
-            console.log(`The student ${studentToRegister.email} is already registered!`);
-        } else {
-            this.students.push(studentToRegister);
-            console.log(`Registering ${studentToRegister.email} to the bootcamp ${this.name}.`);
+       //if theToRegister argument does not possess a name or email property,console.log() the string"invalid name or email" then return false
+        if (!studentToRegister.name || !studentToRegister.email) {
+            console.log("invalid name or email");
+            return false;
         }
-        return this.students;
+        //if theToRegister argument does possess a name and email property, check if the students array contains a student with the same email address as theToRegister argument
+        else {
+            let studentEmails = this.students.map(student => student.email);
+            if (studentEmails.includes(studentToRegister.email)) {
+                console.log(`The student ${studentToRegister.name} is already registered`);
+                return false;
+            }
+            else {
+                this.students.push(studentToRegister);
+                console.log(`Registering ${studentToRegister.name} to the bootcamp ${this.name}`);
+                return true;
+            }
+        }
+        
+        
     }  
 
     listStudents() {
@@ -36,6 +49,14 @@ class Bootcamp {
             console.log(`There are no students in ${this.name} bootcamp`);
             return false;
         }
+    }
+    //returns a string containing bootcamp name and level
+    getInfo() {
+        return `${this.name} bootcamp - Level: ${this.level}`;
+    }
+    //to remove a student with specific email address from the students array
+    removeStudent(studentEmail) {
+        this.students = this.students.filter(student => student.email !== studentEmail);
     }
 }
 reactBootcamp = new Bootcamp("React", "Advanced");
