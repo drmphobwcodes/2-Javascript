@@ -1,0 +1,28 @@
+.app-container {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  #fetch-cat-button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 4px;
+  }
+  
+  .cat-image {
+    margin-top: 20px;
+    max-width: 90%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+    .cat-fact {
+        margin-top: 20px;
+        font-size: 20px;
+        line-height: 1.5;
+    }  
