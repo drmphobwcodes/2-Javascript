@@ -1,23 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="Matching Game" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matching Game</title>
-    
-</head>
-
-<body>
-    <h1>Matching Game</h1>
-    <p>Click on the extra smiling face on the left</p>
-
-    <div id="leftSide"></div>
-    <div id="rightSide"></div>
-
     <style>
-        body {
-            text-align: center;
+        img {
+            position: absolute;
         }
 
         div {
@@ -26,73 +16,65 @@
             height: 500px;
         }
 
-        img {
-            position: absolute;
-            ;
-        }
-
         #rightSide {
             left: 500px;
-            border-left: 1px solid black;
+            border-left: 1px solid;
         }
     </style>
+</head>
 
-
-
+<body>
+    <h1>Matching Game</h1>
+    <button onclick="generateFaces()">Start Game</button>
+    <p>Click on the extra smiling face on the left.</p>
+    <main id="m">
+        <div id="leftSide"><img style="top: 100px; left: 100px;"></div>
+        <div id="rightSide"></div>
+    </main>
     <script>
-
-        window.addEventListener('load', generateFaces);
-
         let numberOfFaces = 5;
         const theLeftSide = document.getElementById("leftSide");
-        const theRightSide = document.getElementById("rightSide");
-        const randomPosition = Math.floor(Math.random() * 400) + "px";
+        const theRightSide = document.getElementById('rightSide');
 
+        // theLeftSide var now controls all properties/methods of the div element with the id “leftSide”
         function generateFaces() {
-            for (let i = 0; i < numberOfFaces; i++) {
-                let face = document.createElement("img");
+            for (i = 1; i <= numberOfFaces; i++) { // standard for loop
+                let randomTop = Math.floor(Math.random() * 400);
+                let randomLeft = Math.floor(Math.random() * 400);
+                const face = document.createElement("img");
                 face.src = "smile.png";
-                face.style.top = Math.floor(Math.random() * 400) + "px";
-                face.style.left = Math.floor(Math.random() * 400) + "px";
+                face.style.top = randomTop + "px";
+                face.style.left = randomLeft + "px";
                 theLeftSide.appendChild(face);
             }
             const leftSideImages = theLeftSide.cloneNode(true);
             leftSideImages.removeChild(leftSideImages.lastChild);
             theRightSide.appendChild(leftSideImages);
-
-            // add event listener to the last child of the left side
-            theLeftSide.lastChild.addEventListener("click", nextLevel);
-            // add event listener to the body
-            document.body.addEventListener("click", gameOver);
+            
+            theLeftSide.lastChild.addEventListener('click', nextLevel);
+            document.getElementById("m").addEventListener('click', gameOver);
         }
 
         function nextLevel(event) {
             event.stopPropagation();
-            
-            alert("You clicked the extra face!");
-           
             while (theLeftSide.firstChild) {
                 theLeftSide.removeChild(theLeftSide.firstChild);
             }
-            while (theRightSide.firstChild) {
-                theRightSide.removeChild(theRightSide.firstChild);
-            }
+            theRightSide.innerHTML = ''; //alturnative to remove child loop
             numberOfFaces += 5;
             generateFaces();
-        }
-
-
+        } //End of nextLevel function
         function gameOver() {
-            alert("Game Over!");
-            document.body.removeEventListener("click", gameOver);
-            theLeftSide.lastChild.removeEventListener("click", nextLevel);
+            alert('You Lose!');
+            document.getElementById("m").removeEventListener('click', gameOver);
+            theLeftSide.lastChild.removeEventListener('click', nextLevel)
+            while (theLeftSide.firstChild) {
+                theLeftSide.removeChild(theLeftSide.firstChild);
+            }
+            theRightSide.innerHTML = '';
+            numberOfFaces = 5;
         }
-
-
-
-        
     </script>
-
 
 </body>
 
